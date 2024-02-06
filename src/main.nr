@@ -449,7 +449,8 @@ struct fooStruct {
 //   std::println(f"result: {result}")
 // }
 
-fn main() -> pub u16 {
+
+fn main()-> pub u16 {
   let result = new_module::from_module(2, 4) as u16;
   std::println(f"result: {result}");
   result
