@@ -1,5 +1,5 @@
 use dep::std;
-
+mod new_module;
 //---------------------------------------------------
 // Basics
 // --------------------------------------------------
@@ -227,5 +227,231 @@ use dep::std::collections::vec::Vec;
 //     }
 
 
-// References
+// References /Pointer
+// fn main() {
+//     let mut x = 2;
+//     let mut y = 4;
+//     multiplyBy2(&mut x);
+//     multiplyBy2(&mut y);
+//     std::println(x);
+//     std::println(y);
+// }
+
+// fn multiplyBy2(x: &mut u8){
+//     *x  = *x * 2;
+// }
+
+
+// Function Types
+// fn assert_returns_100(f: fn() -> Field){
+//     assert(f() == 100);
+// }
+
+// fn main() {
+//     assert_returns_100(|| 100);
+//     assert_returns_100(|| 150);
+// }
+
+// Methods
+
+// struct MyStruct {
+//     foo: Field,
+//     bar: Field,
+// }
+
+// impl MyStruct{
+//     fn new(foo: Field) -> MyStruct {
+//         MyStruct {
+//             foo,
+//             bar: 2,
+//         }
+//     }
+
+//     fn sum(self) -> Field {
+//         self.foo + self.bar
+//     }
+// }
+
+// fn main() {
+//     let s = MyStruct::new(40);
+//     assert(s.sum() == 42);
+// }
+
+
+// Lambdas
+// fn main() {
+// let add_50 = |a: u8| a + 50;
+// std::println(add_50(50))
+// }
+
+
+// Control Flow
+// fn main(){
+//     let arr = [4, 5, 8, 7, 1];
+//     let arrLength = arr.len();
+//     std::println("looping");
+//     for i in 0 .. arrLength {
+//         // How do I cast it directly? Without creating a dummy variable
+
+//         let curr: u8 = arr[i];
+//         if(curr == 8){
+//         std::println("I am eight");
+//         }
+//         else {
+//             std::println("I am not eight")
+
+//         }
+//         std::println(curr);
+//     };
+//     std::println("Done");
+// }
+
+// Converting u72 to [u8; 8]
+
+// fn main(num: u72) -> pub [u8; 8] {
+//     let mut out: [u8; 8] = [0; 8];
+//     for i in 0..8 {
+//         out[i] = (num >> (56 - (i * 8))) as u8;
+//     }
+//     std::println(out);
+//     out
+// }
+
+// unconstrained fn u72_to_u8(num: u72) -> [u8; 8] {
+//     let mut out: [u8; 8] = [0; 8];
+//     for i in 0..8 {
+//         out[i] = (num >> (56 - (i * 8))) as u8;
+//     }
+//     out
+// }
+
+// fn main() {
+//     let a: [u8; 8] = [255, 255, 255, 255, 255, 255, 255, 255];
+//      let mut reconstructed_num: u72 = 0;
+//     for i in 0..8 {
+//         reconstructed_num += (a[i] as u72 << (56 - (8 * i)));
+//     }
+//     std::println(reconstructed_num)
+// }
+
+
+// fn main() -> pub Field {
+//     let x = 3;
+//     // helper(x);
+//     x // x is still 3
+// }
+
+// fn helper(mut x: i32) {
+//     x = 4;
+// }
+
+
+//LAMBDAS
+
+// fn main() {
+//     let anotherVariable = 21;
+//     let coolFunction = || {
+//         let first = 44;
+//         let second = 2;
+//         (first * second) + anotherVariable as u8
+//     };
+
+//     std::println(coolFunction())
+
+// }
+
+// This fails. Closure issues
+// fn foo(f: fn () -> Field) -> Field {
+//  let result = f();
+//  result
+// }
+
+// fn main() {
+//   let (x, y) = (50, 50);
+//   assert(foo(|| x + y) == 100); // error :(
+// }
+
+
+// This solves closure issues
+// fn foo<Env>(f: fn[Env]() -> Field) -> Field {
+//  f()
+// }
+
+// fn main() {
+//   let (x, y) = (50, 50);
+//   assert(foo(|| x + y) == 100); // compiles fine
+//   assert(foo(|| 60) == 60);     // compiles fine
+// }
+
+
+// Testing nargo execute
+// fn main() -> pub [Field; 8] {
+//     let x = 5;
+//     let mut out: [Field; 8] = [0; 8];
+//     {
+//         let x = x * 2;
+//         assert (x == 10);
+//     }
+
+//     assert (x == 5);
+//     for i in 0..8 {
+//         out[i] = x + i;
+//     }
+//     out
+// }
+
+
+struct Person {
+    age : u8,
+    height : u8,
+}
+
+struct anotherStruct {
+    y: u8,
+    x: u8,
+}
+
+struct fooStruct {
+    my_struct: anotherStruct,
+    foo: u8,
+}
+
+// fn main(age : u8, height : u8) {
+//     let person = Person { age : age, height : height };
+//     std::println(person);
+//     std::println(age + height);
+//     std::println("Hello world!");
+
+//     let i: u8 = 24;
+//     let j: u8 = 22;
+//     let x: u8 = 4;
+//     let y: u8 =  2;
+//       let fmt_str = f"i: {i}, j: {j}";
+//   std::println(fmt_str);
+
+//   let s = anotherStruct { y: x, x: y };
+//   std::println(s);
+
+//   std::println(f"i: {i}, s: {s}");
+
+//   std::println(x);
+//   std::println([x, y]);
+
+//   let foo = fooStruct { my_struct: s, foo: 15 };
+//   std::println(f"s: {s}, foo: {foo}");
+
+//   std::println(15);       // prints 0x0f, implicit Field
+// //   std::println(-1 as u8); // prints 255
+//   std::println(-1 as i8); // prints -1
+
+
+//   let result = new_module::from_module(2, 4);
+//   std::println(f"result: {result}")
+// }
+
+fn main() -> pub u16 {
+  let result = new_module::from_module(2, 4) as u16;
+  std::println(f"result: {result}");
+  result
+}
 
